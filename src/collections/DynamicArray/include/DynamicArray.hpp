@@ -3,8 +3,6 @@
 #include <cstddef>
 #include <stdexcept>
 
-size_t j;
-
 #include "../../Sequence/include/Sequence.hpp"
 
 #define DYNAMICARRAY_OUT_OF_RANGE "Index out of range"
