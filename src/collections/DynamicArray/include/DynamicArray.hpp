@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <cstddef>
 #include <stdexcept>
 
@@ -16,8 +17,9 @@ class DynamicArray : public Sequence<T> {
     void resize(size_t newcap) {
         T* newstor = new T[newcap];
         std::copy(storage, storage + capacity, newstor);
-        delete storage;
+        delete[] storage;
         storage = newstor;
+        capacity = newcap;
     }
 
    public:
@@ -35,7 +37,7 @@ class DynamicArray : public Sequence<T> {
     DynamicArray& operator=(const DynamicArray& other) {
         size = other.size;
         capacity = other.capacity;
-        delete storage;
+        delete[] storage;
         storage = new T[capacity];
         std::copy(other.storage, other.storage + size, storage);
         return *this;
@@ -62,15 +64,8 @@ class DynamicArray : public Sequence<T> {
         }
         throw std::out_of_range(DYNAMICARRAY_OUT_OF_RANGE);
     }
-    T& operator[](size_t index) {
-        std::cout << index << std::endl;
-
-        return storage[index];
-    }
-    const T& operator[](size_t index) const {
-        std::cout << index << std::endl;
-        return storage[index];
-    }
+    T& operator[](size_t index) { return storage[index]; }
+    const T& operator[](size_t index) const { return storage[index]; }
     size_t GetLength() const override { return size; }
     void Append(const T& value) override { InsertAt(value, size); }
     void Prepend(const T& value) override { InsertAt(value, 0); }
@@ -79,14 +74,14 @@ class DynamicArray : public Sequence<T> {
             throw std::out_of_range(DYNAMICARRAY_OUT_OF_RANGE);
         }
         if (capacity == size) {
-            auto newcap = capacity == 0 ? 1 : 2 * capacity;
+            size_t newcap = (capacity == 0) ? 1 : 2 * capacity;
             resize((newcap));
         }
-        ++size;
         storage[size] = value;
         for (size_t start = size; start > index; --start) {
             std::swap(storage[start], storage[start - 1]);
         }
+        ++size;
     }
     void RemoveAt(size_t index) override {
         if (index > size) {

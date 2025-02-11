@@ -10,13 +10,12 @@ class SparseVector {
     T nullelem;
 
    public:
-    SparseVector(const DynamicArray<T>& vector) {
-               // for (size_t i = 0; i < 1; ++i) {
-        //     // vector[i];
-        //     // if (vector[i] != nullelem) {
-        //     //     // storage.Add(i, vector[i]);
-        //     // }
-        // }
+    SparseVector(const DynamicArray<T>& vector, const T& nullelem) : nullelem(nullelem) {
+        for (size_t i = 0; i < vector.GetLength(); ++i) {
+            if (vector[i] != nullelem) {
+                storage.Add(i, vector[i]);
+            }
+        }
     }
     void Add(size_t index, const T& element) { storage.Add(index, element); }
     T Get(size_t index) {
