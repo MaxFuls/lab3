@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../src/collections/HashTable/include/HashTable.hpp"
+#include "../../../collections/HashMap/include/HashMap.hpp"
 
 template <typename T, typename Key>
 class IDictionary {

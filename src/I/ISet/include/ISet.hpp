@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../../../collections/HashTable/include/HashTable.hpp"
+#include "../../../collections/HashMap/include/HashMap.hpp"
 
 template <typename T>
 class ISet {
    private:
-    HashMap<T, T> HashMap;
+    HashMap<T, bool> hashMap;
 
    public:
-    void Add(const T& value) { HashMap.Add(value, value); }
-    void Get(const T& value) { HashMap.Get(value); }
+    void Add(const T& value) { HashMap.Add(value, true); }
+    bool ContainsValue(const T& value) { return hashMap.ContainsKey(value); }
     void Remove(const T& value) { HashMap.Remove(value); }
 };
