@@ -10,15 +10,19 @@
 template <typename T>
 class SparseMatrix {
    private:
-    HashMap<size_t, SparseVector<T>> storage;
-    T nullelem;
     size_t rows;
     size_t columns;
+    T nullelem;
+    HashMap<size_t, SparseVector<T>> storage;
 
    public:
     SparseMatrix(const T& nullelem = T()) : nullelem(nullelem) {}
-    SparseMatrix(const DynamicArray<DynamicArray<T>>& matrix, const T& nullelem = T()) {
+    SparseMatrix(const DynamicArray<DynamicArray<T>>& matrix, const T& nullelem = T())
+        : rows(matrix.GetLength()), columns(0), nullelem(nullelem) {
         for (size_t i = 0, height = matrix.GetLength(); i < height; ++i) {
+            if (matrix[i].GetLength() > columns) {
+                columns = matrix[i].GetLength();
+            }
             for (size_t j = 0, width = matrix[i].GetLength(); j < width; ++j) {
                 SparseVector<T> vector(matrix.Get(i));
                 storage.Add(i, vector);
@@ -55,4 +59,6 @@ class SparseMatrix {
         }
         storage.Get(row).Remove(column);
     }
+    size_t GetColumns() const { return columns; }
+    size_t GetRows() const { return rows; }
 };

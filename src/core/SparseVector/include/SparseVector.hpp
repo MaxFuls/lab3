@@ -28,7 +28,7 @@ class SparseVector {
             }
         }
     }
-    T Get(size_t index) {
+    T& Get(size_t index) {
         if (index > size) {
             throw std::out_of_range("Index out of range");
         }
