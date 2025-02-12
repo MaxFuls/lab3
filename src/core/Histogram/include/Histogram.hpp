@@ -63,6 +63,6 @@ class Histogram {
     void Add(const T& value) { add_to_storage(value); }
     void Remove(const T& value) {
         auto diap = find_diap(value);
-        storage.Remove(diap);
+        --storage.Get(diap);
     }
 };

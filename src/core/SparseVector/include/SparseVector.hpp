@@ -24,7 +24,7 @@ class SparseVector {
         if (element != nullelem) {
             storage.Add(index, element);
             if (index > size) {
-                size = index;
+                size = index + 1;
             }
         }
     }
@@ -42,6 +42,8 @@ class SparseVector {
             throw std::out_of_range("Index out of range");
         }
         storage.Remove(index);
+        --size;
     }
-    size_t GetLength() const { return storage.GetCount(); }
+    size_t GetCount() const { return storage.GetCount(); }
+    size_t GetLength() const { return size; }
 };

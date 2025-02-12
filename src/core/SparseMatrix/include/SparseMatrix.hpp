@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstddef>
+#include <stdexcept>
+
 #include "../../../collections/DynamicArray/include/DynamicArray.hpp"
 #include "../../../collections/HashMap/include/HashMap.hpp"
 #include "../../SparseVector/include/SparseVector.hpp"
@@ -7,7 +10,7 @@
 template <typename T>
 class SparseMatrix {
    private:
-    HashMap<size_t, SparseVector> storage;
+    HashMap<size_t, SparseVector<T>> storage;
     T nullelem;
     size_t rows;
     size_t columns;
@@ -23,7 +26,7 @@ class SparseMatrix {
         }
     }
     void Add(size_t row, size_t column, const T& value) {
-        if (HashMap.ContainsKey(row)) {
+        if (storage.ContainsKey(row)) {
             if (column > columns) {
                 columns = column;
             }

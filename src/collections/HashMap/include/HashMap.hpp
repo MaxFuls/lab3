@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstddef>
+#include <iostream>
+#include <stdexcept>
 
 #include "../../DynamicArray/include/DynamicArray.hpp"
 #include "../../LinkedList/include/LinkedList.hpp"
@@ -21,7 +23,7 @@ class HashMap {
         DynamicArray<LinkedList<std::pair<const Key, T>>> new_storage(new_cap);
         for (size_t i = 0, size = storage.GetLength(); i < size; ++i) {
             for (size_t j = 0, ssize = storage[i].GetLength(); j < ssize; ++j) {
-                put_value_to_map(storage[i].Get(j).first, storage[i].Get(j).first, new_storage);
+                put_value_to_map(storage[i].Get(j).first, storage[i].Get(j).second, new_storage);
             }
         }
         cap = new_cap;
@@ -56,10 +58,11 @@ class HashMap {
 
     void Remove(const Key& key) {
         size_t index = get_bucket_index(key, cap);
-        for (size_t i = 0, size = storage[index].GetLength(); i < size; ++i) {
+        for (size_t i = 0, length = storage[index].GetLength(); i < size; ++i) {
             if (storage[index].Get(i).first == key) {
                 storage[index].RemoveAt(i);
                 --size;
+                return;
             }
         }
         throw std::invalid_argument(INVALID_KEY);
@@ -70,6 +73,7 @@ class HashMap {
         for (size_t i = 0, size = storage[index].GetLength(); i < size; ++i) {
             if (storage[index].Get(i).first == key) {
                 storage[index].Get(i).second = value;
+                return;
             }
         }
         throw std::invalid_argument(INVALID_KEY);

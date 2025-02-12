@@ -15,7 +15,8 @@ void test() {
         refernce.Append(0.0);
         refernce.Append(0.0);
         SparseVector<double> vector(refernce, 0.0);
-        assert(vector.GetLength() == 2);
+        assert(vector.GetLength() == 6);
+        assert(vector.GetCount() == 2);
         assert(vector.Get(0) == 0.0);
         assert(vector.Get(1) == 1.0);
         assert(vector.Get(2) == 0.0);
@@ -24,6 +25,23 @@ void test() {
         assert(vector.Get(5) == 0.0);
     }
     {
+        SparseVector<double> vector;
+        vector.Add(10, 1.0);
+        vector.Add(1, 2.0);
+        vector.Add(5, 7.0);
+        assert(vector.Get(0) == 0.0);
+        assert(vector.Get(1) == 2.0);
+        assert(vector.Get(7) == 0.0);
+        assert(vector.Get(10) == 1.0);
+    }
+    {
+        SparseVector<double> vector;
+        vector.Add(10, 1.0);
+        vector.Add(1, 2.0);
+        vector.Add(5, 7.0);
+        assert(vector.GetLength() == 11);
+        vector.Remove(10);
+        assert(vector.GetLength() == 10);
     }
 }
 
