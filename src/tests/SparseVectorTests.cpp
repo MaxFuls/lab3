@@ -1,9 +1,8 @@
 #include <cassert>
 #include <iostream>
 
-#include "../collections/DynamicArray/include/DynamicArray.hpp"
-#include "../collections/HashMap/include/HashMap.hpp"
-#include "../core/SparseVector/include/SparseVector.hpp"
+#include "DynamicArray.hpp"
+#include "SparseVector.hpp"
 
 void test() {
     {

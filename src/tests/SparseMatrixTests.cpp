@@ -1,7 +1,7 @@
 #include <cassert>
 
-#include "../collections/DynamicArray/include/DynamicArray.hpp"
-#include "../core/SparseMatrix/include/SparseMatrix.hpp"
+#include "DynamicArray.hpp"
+#include "SparseMatrix.hpp"
 
 void test() {
     {

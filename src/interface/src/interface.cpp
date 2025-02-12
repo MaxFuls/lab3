@@ -38,14 +38,18 @@ void HistogramMenu() {
     std::cout << "3. Person\n";
     size_t choice;
     std::cin >> choice;
+    std::cout << "Enter the left and right borders of total range, count of ranges\n";
+    double left, right;
+    size_t count;
+    std::cin >> left >> right >> count;
     if (choice == 1) {
-        HistogramSubmenu<int>();
+        HistogramSubmenu<int>(left, right, count);
     } else if (choice == 2) {
-        HistogramSubmenu<double>();
+        HistogramSubmenu<double>(left, right, count);
     } else if (choice == 3) {
         std::string filename = "persons.txt";
         std::vector<Person> persons = LoadPersonsFromFile(filename);
-        BuildPersonHistogram(persons);
+        BuildPersonHistogram(persons, left, right, count);
     }
 }
 
@@ -142,16 +146,12 @@ void MainMenu() {
     }
 }
 
-void BuildPersonHistogram(const std::vector<Person>& people) {
+void BuildPersonHistogram(const std::vector<Person>& people, double left, double right, size_t count) {
     std::cout << "choose data type:\n";
     std::cout << "1. age\n";
     std::cout << "2. height\n";
     size_t choice;
     std::cin >> choice;
-    std::cout << "Enter the left and right borders of total range, count of ranges\n";
-    double left, right;
-    size_t count;
-    std::cin >> left >> right >> count;
     if (choice == 1) {  // Возраст
         Histogram<Person> histogram(left, right, count, [](const Person& person) { return person.age; });
         for (const auto& v : people) {

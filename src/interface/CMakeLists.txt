@@ -1,0 +1,6 @@
+add_library(interface src/interface.cpp)
+target_include_directories(interface PUBLIC include)
+target_include_directories(interface PUBLIC ../data/person/include)
+target_include_directories(interface PUBLIC ../core/Histogram/include)
+target_include_directories(interface PUBLIC ../core/SparseMatrix/include)
+target_include_directories(interface PUBLIC ../core/SparseVector/include)

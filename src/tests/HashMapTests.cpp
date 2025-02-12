@@ -1,6 +1,6 @@
 #include <cassert>
 
-#include "../collections/HashMap/include/HashMap.hpp"
+#include "HashMap.hpp"
 
 void test() {
     {

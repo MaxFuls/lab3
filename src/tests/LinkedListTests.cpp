@@ -1,7 +1,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "../collections/LinkedList/include/LinkedList.hpp"
+#include "LinkedList.hpp"
 
 void test() {
     {

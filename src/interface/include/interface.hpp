@@ -1,8 +1,9 @@
 #include <vector>
 
+#include "../../core/Histogram/include/Histogram.hpp"
 #include "person.hpp"
 
-std::vector<Person> LoadPersonsFromFile(const std::string& filename);
+std::vector<Person> LoadPersonsFromFile(const std::string&);
 
 void HistogramMenu();
 
@@ -10,13 +11,13 @@ void SparseVectorMenu();
 
 void SparseMatrixMenu();
 
-void BuildPersonHistogram(const std::vector<Person>& people);
+void BuildPersonHistogram(const std::vector<Person>&, double, double, size_t);
 
 void MainMenu();
 
 template <typename T>
-void HistogramSubmenu() {
-    Histogram<T> histogram;
+void HistogramSubmenu(double left, double right, size_t count) {
+    Histogram<T> histogram(left, right, count, [](T val) { return val; });
     T value;
     while (true) {
         std::cout << "1. Add\n2. Remove\n3. Print\n4. Back\n";

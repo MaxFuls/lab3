@@ -1,7 +1,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "../collections/DynamicArray/include/DynamicArray.hpp"
+#include "DynamicArray.hpp"
 
 void test() {
     {

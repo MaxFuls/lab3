@@ -1,7 +1,7 @@
 #include <cassert>
 #include <cstddef>
 
-#include "../core/Histogram/include/Histogram.hpp"
+#include "Histogram.hpp"
 
 void test() {
     {
