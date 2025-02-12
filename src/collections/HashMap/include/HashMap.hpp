@@ -6,7 +6,6 @@
 #include "../../LinkedList/include/LinkedList.hpp"
 
 #define INVALID_KEY "There is not key at table"
-
 template <typename Key, typename T, typename Hash = std::hash<Key>>
 class HashMap {
    private:
@@ -35,6 +34,7 @@ class HashMap {
     size_t get_bucket_index(const Key& key, size_t capacity) const { return hash(key) % capacity; }
 
    public:
+    ~HashMap() = default;
     HashMap(size_t capacity = 13) : size(0), cap(capacity), load_factor(0.0), max_load_factor(2.0), storage(capacity) {}
     void Add(const Key& key, const T& value) {
         ++size;
