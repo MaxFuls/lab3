@@ -56,6 +56,16 @@ class HashMap {
         throw std::invalid_argument(INVALID_KEY);
     }
 
+    const T& Get(const Key& key) const {
+        size_t index = get_bucket_index(key, cap);
+        for (size_t i = 0, size = storage[index].GetLength(); i < size; ++i) {
+            if (storage[index].Get(i).first == key) {
+                return storage[index].Get(i).second;
+            }
+        }
+        throw std::invalid_argument(INVALID_KEY);
+    }
+
     void Remove(const Key& key) {
         size_t index = get_bucket_index(key, cap);
         for (size_t i = 0, length = storage[index].GetLength(); i < size; ++i) {

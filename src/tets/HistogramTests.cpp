@@ -4,8 +4,29 @@
 #include "../core/Histogram/include/Histogram.hpp"
 
 void test() {
-    auto lambda = [](size_t value) { return value; };
-    Histogram<size_t> t(0.0, 10.0, 10, lambda);
+    {
+        Histogram<size_t> t(0.0, 10.0, 5, [](size_t value) { return value; });
+        t.Add(3);
+        t.Add(2);
+        t.Add(1);
+        t.Add(8);
+        t.Add(13);
+        t.Print();
+        std::cout << '\n';
+    }
+    {
+        Histogram<size_t> t(0.0, 10.0, 5, [](size_t value) { return value; });
+        t.Add(3);
+        t.Add(2);
+        t.Add(1);
+        t.Add(8);
+        t.Add(13);
+        t.Print();
+        std::cout << '\n';
+        t.Remove(2);
+        t.Print();
+        std::cout << '\n';
+    }
 }
 
 int main() { test(); }

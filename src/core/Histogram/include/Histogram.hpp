@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <iostream>
 
 #include "../../../I/IDictionary/include/IDictionary.hpp"
 #include "../../../collections/Sequence/include/Sequence.hpp"
@@ -18,17 +19,17 @@ class Histogram {
     std::pair<double, double> totaldiap;
     size_t diaps_count;
     double elementary_diap;
-    std::function<size_t(T)>& func;
+    std::function<double(T)>& func;
 
     std::pair<double, double> find_diap(const T& value) {
         double left_border = totaldiap.first;
-        size_t index = function(value);
+        double index = func(value);
         size_t number = (index - left_border) / elementary_diap;
         return {left_border + number * elementary_diap, left_border + (number + 1) * elementary_diap};
     }
 
     void add_to_storage(const T& value) {
-        size_t index = function(value);
+        double index = func(value);
         double left_border = totaldiap.first;
         double right_border = totaldiap.second;
         if (index >= left_border && index <= right_border) {
@@ -45,7 +46,7 @@ class Histogram {
 
    public:
     ~Histogram() = default;
-    Histogram(double left_border, double right_border, size_t diaps_count, std::function<size_t(T)> function)
+    Histogram(double left_border, double right_border, size_t diaps_count, std::function<double(T)> function)
         : func(function), totaldiap(left_border, right_border), diaps_count(diaps_count) {
         if (left_border > right_border) {
             throw std::invalid_argument("Left border is less them right border\n");
@@ -53,7 +54,7 @@ class Histogram {
         elementary_diap = (right_border - left_border) / diaps_count;
         initialize_storage();
     }
-    Histogram(double left_border, double right_border, size_t diaps_count, std::function<size_t(T)>& function,
+    Histogram(double left_border, double right_border, size_t diaps_count, std::function<double(T)>& function,
               const Sequence<T>& sequence)
         : Histogram(left_border, right_border, diaps_count, function) {
         for (size_t i = 0, index, number; i < sequence.GetLength(); ++i) {
@@ -64,5 +65,12 @@ class Histogram {
     void Remove(const T& value) {
         auto diap = find_diap(value);
         --storage.Get(diap);
+    }
+    void Print() const {
+        std::pair<double, double> diap;
+        for (size_t i = 0; i < diaps_count; ++i) {
+            diap = {totaldiap.first + i * elementary_diap, totaldiap.first + (i + 1) * elementary_diap};
+            std::cout << diap.first << " - " << diap.second << " : " << storage.Get(diap) << '\n';
+        }
     }
 };
