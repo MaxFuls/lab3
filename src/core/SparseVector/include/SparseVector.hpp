@@ -17,7 +17,12 @@ class SparseVector {
             }
         }
     }
-    void Add(size_t index, const T& element) { storage.Add(index, element); }
+    void Add(size_t index, const T& element) {
+        if (element != nullelem) {
+            storage.Add(index, element);
+        }
+    }
+
     T Get(size_t index) {
         if (storage.ContainsKey(index)) {
             return storage.Get(index);
