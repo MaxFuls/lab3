@@ -44,7 +44,7 @@ class HashMap {
         }
         put_value_to_map(key, value, storage);
     }
-    T& Get(const Key& key) const {
+    T& Get(const Key& key) {
         size_t index = get_bucket_index(key, cap);
         for (size_t i = 0, size = storage[index].GetLength(); i < size; ++i) {
             if (storage[index].Get(i).first == key) {

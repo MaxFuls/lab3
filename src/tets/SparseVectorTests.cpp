@@ -23,6 +23,8 @@ void test() {
         assert(vector.Get(4) == 0.0);
         assert(vector.Get(5) == 0.0);
     }
+    {
+    }
 }
 
 int main() {
